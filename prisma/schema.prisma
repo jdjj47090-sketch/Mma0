@@ -1,10 +1,88 @@
-generator client { provider = "prisma-client-js" }
-datasource db { provider = "postgresql" url = env("DATABASE_URL") }
-model Admin { id String @id @default(cuid()) email String @unique passwordHash String createdAt DateTime @default(now()) }
-model Project { id String @id @default(cuid()) title String titleAr String @default("") slug String @unique description String @db.Text descriptionAr String @default("") @db.Text category String tags String[] imageUrl String? liveUrl String? repoUrl String? featured Boolean @default(false) published Boolean @default(true) sortOrder Int @default(0) createdAt DateTime @default(now()) updatedAt DateTime @updatedAt }
-model Skill { id String @id @default(cuid()) name String category String level Int @default(75) sortOrder Int @default(0) }
-model Experience { id String @id @default(cuid()) role String company String period String description String @db.Text sortOrder Int @default(0) }
-model SiteSettings { id String @id @default("main") name String @default("Mahdi") bio String @default("") bioAr String @default("") location String @default("") email String @default("") socials Json @default("{}") updatedAt DateTime @updatedAt }
-model Message { id String @id @default(cuid()) name String email String subject String message String @db.Text read Boolean @default(false) createdAt DateTime @default(now()) }
-model ActivityLog { id String @id @default(cuid()) action String entity String entityId String? createdAt DateTime @default(now()) }
-model Visit { id String @id @default(cuid()) path String country String? createdAt DateTime @default(now()) }
+generator client {
+  provider   = "prisma-client-js"
+  engineType = "client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Admin {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+}
+
+model Project {
+  id            String   @id @default(cuid())
+  title         String
+  titleAr       String   @default("")
+  slug          String   @unique
+  description   String   @db.Text
+  descriptionAr String   @default("") @db.Text
+  category      String
+  tags          String[]
+  imageUrl      String?
+  liveUrl       String?
+  repoUrl       String?
+  featured      Boolean  @default(false)
+  published     Boolean  @default(true)
+  sortOrder     Int      @default(0)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Skill {
+  id        String @id @default(cuid())
+  name      String
+  category  String
+  level     Int    @default(75)
+  sortOrder Int    @default(0)
+}
+
+model Experience {
+  id          String @id @default(cuid())
+  role        String
+  company     String
+  period      String
+  description String @db.Text
+  sortOrder   Int    @default(0)
+}
+
+model SiteSettings {
+  id        String   @id @default("main")
+  name      String   @default("Mahdi")
+  bio       String   @default("")
+  bioAr     String   @default("")
+  location  String   @default("")
+  email     String   @default("")
+  socials   Json     @default("{}")
+  updatedAt DateTime @updatedAt
+}
+
+model Message {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  subject   String
+  message   String   @db.Text
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model ActivityLog {
+  id        String   @id @default(cuid())
+  action    String
+  entity    String
+  entityId  String?
+  createdAt DateTime @default(now())
+}
+
+model Visit {
+  id        String   @id @default(cuid())
+  path      String
+  country   String?
+  createdAt DateTime @default(now())
+}
