@@ -20,3 +20,10 @@ The public site supports English/Arabic language and layout direction, theme swi
 ### Termux note
 
 Prisma Client uses its JavaScript query engine with the `pg` adapter, which avoids platform-specific Rust query binaries. Prisma CLI migrations still require Prisma’s schema engine; this Termux/Android environment reports an unsupported platform for that CLI command. On Termux, apply the committed SQL with `psql -f prisma/migrations/20261108000000_init/migration.sql` for a fresh database. On supported Linux/macOS deployments, use `npm run db:migrate`.
+
+## Automated Git workflow
+
+- GitHub Actions runs `npm run validate` for pushes to `main`, pull requests into `main`, and manual workflow dispatch. The checks include Prisma client generation, TypeScript, ESLint, unit tests, and a production build.
+- For a local save and push in one step, run `npm run ship -- "feat: describe the change"`. It validates first, refuses to touch an already-staged index, checks changed paths for likely secrets, prints the files it will commit, then creates a commit and pushes the current branch to `origin`.
+- Configure your Git author identity and GitHub HTTPS/SSH authentication once. If the push is rejected, the completed commit remains local and the script reports the Git error; it will not claim a successful push.
+- Run `npm run validate` directly when you only want checks without creating a commit.
