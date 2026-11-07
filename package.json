@@ -11,6 +11,7 @@
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate deploy",
     "db:seed": "tsx prisma/seed.ts",
+    "create-admin": "tsx scripts/create-admin.ts",
     "test": "tsx --test tests/*.test.ts",
     "validate": "npm run db:generate && npm run typecheck && npm run lint && npm run test && npm run build",
     "ship": "node scripts/ship.mjs"

@@ -9,6 +9,8 @@ A responsive bilingual portfolio and content dashboard built with Next.js, TypeS
 3. Run `npm install`, `npm run db:generate`, `npm run db:migrate`, `npm run db:seed`, then `npm run dev`.
 4. Visit `/` for the public site and `/admin` to sign in.
 
+`npm run create-admin` creates the first admin using `ADMIN_EMAIL` and `DATABASE_URL`. Set `ADMIN_PASSWORD` to choose the password; if it is unset, the script generates a 24-character password and prints it once after successful creation. It hashes passwords with the same bcrypt configuration used by login and safely skips an existing email. Apply migrations with `npm run db:migrate` first. On Vercel, configure `DATABASE_URL`, `ADMIN_EMAIL`, `ADMIN_PASSWORD`, and `AUTH_SECRET` for Production, then run the command with `vercel env run -e production -- npm run create-admin` from a linked project.
+
 `prisma/migrations` contains the initial PostgreSQL schema. `npm run db:migrate` applies the committed migration in development or deployment. Project CRUD and contact inbox are database-backed. The admin password is bcrypt hashed; sessions are signed, eight-hour, HTTP-only cookies. Admin APIs check the signed session on every request. Public contact and login APIs validate inputs and use per-IP in-memory rate limits. Production deployments should provide a shared rate limiter (for example Redis) when running multiple instances and configure TLS/reverse-proxy trusted IP handling.
 
 Unknown biography, links, location, and personal history are editable placeholders or clearly generic copy. Do not publish until Mahdi replaces them. Set `NEXT_PUBLIC_SITE_URL` to the canonical deployment URL for metadata.
