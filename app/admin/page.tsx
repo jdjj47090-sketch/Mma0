@@ -1,0 +1,3 @@
+import {getSession} from '@/lib/auth';import {db} from '@/lib/db';import AdminPanel from './AdminPanel';import Dashboard from './Dashboard';
+export const dynamic='force-dynamic';
+export default async function Admin(){if(!await getSession())return <AdminPanel/>;const [projects,messages,visits,activities]=await Promise.all([db.project.findMany({orderBy:{createdAt:'desc'}}),db.message.findMany({orderBy:{createdAt:'desc'},take:30}),db.visit.count(),db.activityLog.findMany({orderBy:{createdAt:'desc'},take:10})]);return <Dashboard projects={projects} messages={messages} visits={visits} activities={activities}/>}

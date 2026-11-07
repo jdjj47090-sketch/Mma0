@@ -1,0 +1,1 @@
+export default function Loading(){return <main className="loading-screen"><span className="loading-mark">M<span>.</span></span><span className="loading-line"><i/></span><span className="tiny-label">PREPARING YOUR SPACE</span></main>}

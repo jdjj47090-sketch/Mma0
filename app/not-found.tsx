@@ -1,0 +1,1 @@
+import Link from 'next/link';export default function NotFound(){return <main className="not-found"><span className="tiny-label">404 / PAGE NOT FOUND</span><h1>Lost in<br/>the space<span className="period">.</span></h1><p>This page doesn’t seem to exist.</p><Link href="/">Return home ↗</Link></main>}

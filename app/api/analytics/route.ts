@@ -1,0 +1,2 @@
+import {NextRequest,NextResponse} from 'next/server';import {db} from '@/lib/db';import {rateLimit} from '@/lib/rate-limit';
+export async function POST(req:NextRequest){const ip=req.headers.get('x-forwarded-for')?.split(',')[0]||'unknown';if(!rateLimit(`visit:${ip}`,30,3600000))return NextResponse.json({ok:true});const body=await req.json().catch(()=>({}));const path=typeof body.path==='string'&&body.path.startsWith('/')?body.path.slice(0,200):'/';await db.visit.create({data:{path}});return NextResponse.json({ok:true},{status:201});}
